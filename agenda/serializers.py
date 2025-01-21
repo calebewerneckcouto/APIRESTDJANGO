@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from agenda.models import Agendamento
 
+from django.utils import timezone
+
 
 class AgendamentoSerializer(serializers.Serializer):
     data_horario=serializers.DateTimeField()
@@ -8,6 +10,19 @@ class AgendamentoSerializer(serializers.Serializer):
     email_cliente=serializers.EmailField()
     telefone_cliente = serializers.CharField(max_length=20)
     
+    def validate_data_horario(self,value):
+        if value <timezone.now():
+            raise serializers.ValidationError("Agendamento não pode ser feito no passado!")
+        return value
+    
+    def validate(self, attrs):
+         telefone_cliente=attrs.get("telefone_cliente","")
+         email_cliente=attrs.get("email_cliente","")
+         if email_cliente.endswith(".br") and telefone_cliente.startswith("+") and not telefone_cliente.startswith("+55"):
+             raise serializers.ValidationError("E-mail brasileiro deve estar associado a um numero do Brasil(+55)")
+         return attrs
+        
+         
     def create(self, validated_data):
         agendamento = Agendamento.objects.create(
                 data_horario=validated_data["data_horario"],

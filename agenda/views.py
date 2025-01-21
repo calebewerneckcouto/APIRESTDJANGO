@@ -22,7 +22,7 @@ def agendamento_detail(request,id):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data,status=200)
-        return JsonResponse(serializer.error,status=400)
+        return JsonResponse(serializer.errors,status=400)
      if request.method == "DELETE":   
             
          obj.delete()
@@ -40,7 +40,7 @@ def agendamento_list(request):
         data = request.data
         serializer =AgendamentoSerializer(data=data)
         if serializer.is_valid():
-            validated_data= serializer.validated_data
+            
             serializer.save()
             return JsonResponse(serializer.data,status=201)
-        return JsonResponse(serializer.error,status=400)
+        return JsonResponse(serializer.errors,status=400)
