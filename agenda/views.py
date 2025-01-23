@@ -1,5 +1,4 @@
-
-from rest_framework.decorators import api_view
+from rest_framework import mixins, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -7,41 +6,50 @@ from agenda.models import Agendamento
 from agenda.serializers import AgendamentoSerializer
 from django.http import JsonResponse
 
-# Create your views here.
 
-class AgendamentoDetail(APIView):
-    def get(self, request, id):  # Corrigido: adicionado 'self'
-        obj = get_object_or_404(Agendamento, id=id)
-        serializer = AgendamentoSerializer(obj)
-        return JsonResponse(serializer.data)
+class AgendamentoList(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    generics.GenericAPIView,  # Corrigido: nome da classe
+):
+    queryset = Agendamento.objects.all()
+    serializer_class = AgendamentoSerializer
 
-    def patch(self, request, id):
-        obj = get_object_or_404(Agendamento, id=id)
-        serializer = AgendamentoSerializer(obj, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=200)
-        return JsonResponse(serializer.errors, status=400)
+    def get(self, request, *args, **kwargs):
+        # Retorna a lista de agendamentos
+        return self.list(request, *args, **kwargs)
 
-    def delete(self, request, id):
-        obj = get_object_or_404(Agendamento, id=id)
-        obj.delete()
-        return Response(status=204)
+    def post(self, request, *args, **kwargs):
+        # Cria um novo agendamento
+        return self.create(request, *args, **kwargs)
 
-         
-class AgendamentoList(APIView):
-    def get(self,request):
-        qs = Agendamento.objects.all()
-        serializer =AgendamentoSerializer(qs,many=True)
-        return JsonResponse(serializer.data,safe=False)
+class AgendamentoDetail(
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    generics.GenericAPIView,
+):
+    queryset = Agendamento.objects.all()
+    serializer_class = AgendamentoSerializer
+    lookup_field ="id"  # pode usar id agora se quiser
+    def get(self, request, *args, **kwargs):
+        # Retorna a lista de agendamentos
+        return self.retrieve(request, *args, **kwargs)
+    
+    def patch(self, request, *args, **kwargs):
+        # Atualiza total ou parcial
+        return self.partial_update(request, *args, **kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        # Atualiza total
+        return self.update(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        # Deleta os dados
+        return self.destroy(request, *args, **kwargs)
     
     
-    def post(self,request):
-        data = request.data
-        serializer =AgendamentoSerializer(data=data)
-        if serializer.is_valid():
-            
-            serializer.save()
-            return JsonResponse(serializer.data,status=201)
-        return JsonResponse(serializer.errors,status=400)            
+
+
+
 
