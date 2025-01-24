@@ -1,8 +1,10 @@
 from rest_framework import generics
 from agenda.models import Agendamento
+from agenda.serializers import PrestadorSerializer
 from agenda.serializers import AgendamentoSerializer
 from rest_framework.decorators import api_view
 from rest_framework import permissions
+from django.contrib.auth.models import User
 
 
 """
@@ -15,18 +17,16 @@ Apenas o prestador de servico pode manipular os sues agendamentos
 class IsOwnerOrCreateOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method == "POST":
-            return True
-        username= request.query_params.get("username,None")
-        if request.user.username==username:
-            return True
-        return False
+            return True  # Qualquer um pode criar agendamentos
+        username = request.query_params.get("username", None)
+        return request.user.is_authenticated and request.user.username == username
+
     
     
 class IsPrestador(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        if object.prestador == request.user:
-           return True
-        return False   
+        return obj.prestador == request.user
+ 
 
 class AgendamentoList(generics.ListCreateAPIView):
     """
@@ -34,7 +34,8 @@ class AgendamentoList(generics.ListCreateAPIView):
     Permite filtragem de agendamentos pelo username do prestador.
     """
     serializer_class = AgendamentoSerializer
-    permissions_classe=[permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     
     def get_queryset(self):
         """
@@ -58,5 +59,8 @@ class AgendamentoDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AgendamentoSerializer
 
 
+class PrestadorList(generics.ListAPIView):
+    serializer_class = PrestadorSerializer
+    queryset = User.objects.all()
 
       

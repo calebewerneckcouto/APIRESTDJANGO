@@ -53,3 +53,13 @@ class AgendamentoSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+
+
+class PrestadorSerializer(serializers.ModelSerializer):
+    agendamentos = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'agendamentos']
+        
+    agendamentos = AgendamentoSerializer(many=True,read_only=True)    
