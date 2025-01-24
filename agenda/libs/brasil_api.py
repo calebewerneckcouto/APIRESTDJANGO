@@ -1,12 +1,12 @@
 
 from datetime import date
 import requests
-import json
-from django.conf import TESTING
+
+from django.conf import settings
 
 
 def is_testing(date:date):
-    if TESTING == True:
+    if settings.TESTING == True:
         if date.day == 25 and date.month ==12:
             return True
     return False    

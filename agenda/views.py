@@ -5,9 +5,15 @@ from agenda.serializers import AgendamentoSerializer
 from rest_framework.decorators import api_view
 from rest_framework import permissions
 from django.contrib.auth.models import User
-from agenda.utils import get_horarios_disponieis
-from datetime import date,datetime,timedelta,timezone
+from agenda.utils import get_horarios_disponiveis
+
+from datetime import datetime
 from django.http import JsonResponse
+
+from rest_framework.decorators import api_view
+from django.http import JsonResponse
+from datetime import datetime
+from agenda.utils import get_horarios_disponiveis
 
 
 
@@ -66,16 +72,32 @@ class AgendamentoDetail(generics.RetrieveUpdateDestroyAPIView):
 class PrestadorList(generics.ListAPIView):
     serializer_class = PrestadorSerializer
     queryset = User.objects.all()
+    
+    
+    
+
+
 
 @api_view(http_method_names=["GET"])
 def get_horarios(request):
+    """
+    Endpoint para retornar os horários disponíveis de acordo com a data informada na query string.
+    """
     data = request.query_params.get("data")
+    
+    # Se não for passada uma data, usa a data atual
     if not data:
         data = datetime.now().date()
     else:
-        data = datetime.fromisoformat(data).date()
+        try:
+            # Tenta converter a data informada para o formato datetime
+            data = datetime.fromisoformat(data).date()
+        except ValueError:
+            return JsonResponse({"error": "Formato de data inválido"}, status=400)
     
-    horarios_disponiveis = sorted(list(get_horarios_disponieis(data)))
-    return JsonResponse(horarios_disponiveis,safe=False)        
-         
-  
+    # Chama a função que retorna os horários disponíveis
+    horarios_disponiveis = sorted(list(get_horarios_disponiveis(data)))
+    
+    # Retorna a lista de horários disponíveis
+    return JsonResponse(horarios_disponiveis, safe=False)
+
