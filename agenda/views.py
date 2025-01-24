@@ -1,55 +1,31 @@
-from rest_framework import mixins, generics
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
+from rest_framework import generics
 from agenda.models import Agendamento
 from agenda.serializers import AgendamentoSerializer
-from django.http import JsonResponse
 
 
-class AgendamentoList(
-    mixins.ListModelMixin,
-    mixins.CreateModelMixin,
-    generics.GenericAPIView,  # Corrigido: nome da classe
-):
+class AgendamentoList(generics.ListCreateAPIView):
+    """
+    View para listar e criar agendamentos.
+    Permite filtragem de agendamentos pelo username do prestador.
+    """
+    serializer_class = AgendamentoSerializer
+    
+    def get_queryset(self):
+        """
+        Retorna os agendamentos filtrados por username do prestador
+        se fornecido como parâmetro de consulta.
+        Caso contrário, retorna todos os agendamentos.
+        """
+        username = self.request.query_params.get("username", None)
+        if username:
+            # Filtra os agendamentos pelo username do prestador
+            return Agendamento.objects.filter(prestador__username=username)
+        return Agendamento.objects.all()
+
+
+class AgendamentoDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    View para recuperar, atualizar e excluir agendamentos.
+    """
     queryset = Agendamento.objects.all()
     serializer_class = AgendamentoSerializer
-
-    def get(self, request, *args, **kwargs):
-        # Retorna a lista de agendamentos
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        # Cria um novo agendamento
-        return self.create(request, *args, **kwargs)
-
-class AgendamentoDetail(
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    generics.GenericAPIView,
-):
-    queryset = Agendamento.objects.all()
-    serializer_class = AgendamentoSerializer
-    lookup_field ="id"  # pode usar id agora se quiser
-    def get(self, request, *args, **kwargs):
-        # Retorna a lista de agendamentos
-        return self.retrieve(request, *args, **kwargs)
-    
-    def patch(self, request, *args, **kwargs):
-        # Atualiza total ou parcial
-        return self.partial_update(request, *args, **kwargs)
-    
-    def put(self, request, *args, **kwargs):
-        # Atualiza total
-        return self.update(request, *args, **kwargs)
-    
-    def delete(self, request, *args, **kwargs):
-        # Deleta os dados
-        return self.destroy(request, *args, **kwargs)
-    
-    
-
-
-
-
