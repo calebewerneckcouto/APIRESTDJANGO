@@ -1,6 +1,7 @@
 from rest_framework import generics
 from agenda.models import Agendamento
 from agenda.serializers import AgendamentoSerializer
+from rest_framework.decorators import api_view
 
 
 class AgendamentoList(generics.ListCreateAPIView):
@@ -29,3 +30,7 @@ class AgendamentoDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Agendamento.objects.all()
     serializer_class = AgendamentoSerializer
+
+
+
+      
