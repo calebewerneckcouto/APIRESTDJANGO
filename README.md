@@ -83,3 +83,12 @@ Esta é uma API REST para gerenciamento de agendamentos de serviços. A API perm
 1. **Clone o repositório:**
    ```bash
    git clone https://github.com/seu-usuario/nome-do-repositorio.git
+
+2. **Ative o Ambiente Virtual:**
+   python -m venv venv
+source venv/bin/activate  # Para Linux/macOS
+venv\Scripts\activate     # Para Windows
+3. **Instale as Dependencias:**
+pip install -r requirements.txt
+
+
