@@ -1,3 +1,4 @@
+import sys
 """
 Django settings for tamarcado project.
 
@@ -122,3 +123,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+

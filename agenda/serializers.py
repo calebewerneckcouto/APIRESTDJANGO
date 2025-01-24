@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from agenda.models import Agendamento
+from agenda.utils import get_horarios_disponiveis
+
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -21,6 +23,8 @@ class AgendamentoSerializer(serializers.ModelSerializer):
     def validate_data_horario(self, value):
         if value < timezone.now():
             raise serializers.ValidationError("Agendamento não pode ser feito no passado!")
+        if value not in get_horarios_disponiveis(value.date()):
+            raise serializers.ValidationError("Esse horário nao esta disponivel!")
         return value
 
     def validate(self, attrs):
