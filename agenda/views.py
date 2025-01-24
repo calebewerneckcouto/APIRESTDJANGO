@@ -2,6 +2,14 @@ from rest_framework import generics
 from agenda.models import Agendamento
 from agenda.serializers import AgendamentoSerializer
 from rest_framework.decorators import api_view
+from rest_framework import permissions
+
+
+"""
+Qualquer cliente(autenticado ou não) seja capaz de criar um Agendamento
+Apenas o prestador de servico pode visualizar os agendamentos em sua agenda
+Apenas o prestador de servico pode manipular os sues agendamentos
+"""
 
 
 class AgendamentoList(generics.ListCreateAPIView):
@@ -10,6 +18,7 @@ class AgendamentoList(generics.ListCreateAPIView):
     Permite filtragem de agendamentos pelo username do prestador.
     """
     serializer_class = AgendamentoSerializer
+    permissions_classe=[permissions.IsAuthenticatedOrReadOnly]
     
     def get_queryset(self):
         """
