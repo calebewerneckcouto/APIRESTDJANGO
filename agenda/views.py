@@ -12,6 +12,22 @@ Apenas o prestador de servico pode manipular os sues agendamentos
 """
 
 
+class IsOwnerOrCreateOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method == "POST":
+            return True
+        username= request.query_params.get("username,None")
+        if request.user.username==username:
+            return True
+        return False
+    
+    
+class IsPrestador(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if object.prestador == request.user:
+           return True
+        return False   
+
 class AgendamentoList(generics.ListCreateAPIView):
     """
     View para listar e criar agendamentos.
@@ -37,6 +53,7 @@ class AgendamentoDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     View para recuperar, atualizar e excluir agendamentos.
     """
+    permission_classes=[IsPrestador]
     queryset = Agendamento.objects.all()
     serializer_class = AgendamentoSerializer
 
