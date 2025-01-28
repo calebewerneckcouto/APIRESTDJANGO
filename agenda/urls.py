@@ -1,5 +1,5 @@
 from django.urls import path
-from agenda.views import AgendamentoList, AgendamentoDetail, PrestadorList, get_horarios
+from agenda.views import AgendamentoList, AgendamentoDetail, get_horarios,relatorio_prestadores
 
 # Definição das rotas da aplicação "agenda"
 urlpatterns = [
@@ -10,7 +10,7 @@ urlpatterns = [
     path('agendamentos/<int:pk>/', AgendamentoDetail.as_view(), name='agendamento-detail'),
 
     # Rota para listar os prestadores disponíveis
-    path('prestadores/', PrestadorList.as_view(), name='prestador-list'),
+    path('prestadores/', relatorio_prestadores, name='prestador-list'),
 
     # Rota para obter os horários disponíveis
     path('horarios/', get_horarios, name='get-horarios'),
