@@ -1,11 +1,13 @@
 
 from datetime import date
 import requests
+import logging
 
 from django.conf import settings
 
 
 def is_testing(date:date):
+    logging.info(f"Fazer requisição para BrasilAPI para a data:{date.isoformat()}")
     if settings.TESTING == True:
         if date.day == 25 and date.month ==12:
             return True
