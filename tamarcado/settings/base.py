@@ -76,6 +76,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tamarcado.wsgi.application'
 
+#Celery
+
+# Definindo o broker do Celery
+CELERY_BROKER_URL = 'redis://default:0PKAZEkzurJg5aRpjSf3JiGhRDZQQg8Y@redis-13162.c241.us-east-1-4.ec2.redns.redis-cloud.com:13162/0'
+
+# Definindo o backend para armazenar resultados
+CELERY_RESULT_BACKEND = 'redis://default:0PKAZEkzurJg5aRpjSf3JiGhRDZQQg8Y@redis-13162.c241.us-east-1-4.ec2.redns.redis-cloud.com:13162/0'
+
+# Outras configurações do Celery
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

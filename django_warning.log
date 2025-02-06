@@ -19,3 +19,112 @@ Traceback (most recent call last):
     assert isinstance(response, HttpResponseBase), (
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Expected a `Response`, `HttpResponse` or `StreamingHttpResponse` to be returned from the view, but received a `<class 'NoneType'>`
+ERROR Internal Server Error: /api/prestadores/
+Traceback (most recent call last):
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\agenda\views.py", line 89, in relatorio_prestadores
+    return JsonResponse(serializer.data)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\http\response.py", line 726, in __init__
+    raise TypeError(
+TypeError: In order to allow non-dict objects to be serialized set the safe parameter to False.
+ERROR Internal Server Error: /api/prestadores/
+Traceback (most recent call last):
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\kombu\connection.py", line 472, in _reraise_as_library_errors
+    yield
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\celery\app\base.py", line 800, in send_task
+    self.backend.on_task_call(P, task_id)
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\celery\backends\redis.py", line 373, in on_task_call
+    self.result_consumer.consume_from(task_id)
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\celery\backends\redis.py", line 169, in consume_from
+    return self.start(task_id)
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\celery\backends\redis.py", line 147, in start
+    self._consume_from(initial_task_id)
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\celery\backends\redis.py", line 177, in _consume_from
+    self._pubsub.subscribe(key)
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\redis\client.py", line 957, in subscribe
+    ret_val = self.execute_command("SUBSCRIBE", *new_channels.keys())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\redis\client.py", line 786, in execute_command
+    self.connection = self.connection_pool.get_connection(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\redis\connection.py", line 1422, in get_connection
+    connection.connect()
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\redis\connection.py", line 369, in connect
+    self.on_connect()
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\redis\connection.py", line 485, in on_connect
+    if str_if_bytes(self.read_response()) != "OK":
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\redis\connection.py", line 616, in read_response
+    raise response
+redis.exceptions.ResponseError: DB index is out of range
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\agenda\views.py", line 75, in relatorio_prestadores
+    result = gera_relatorio_prestadores.delay()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\celery\app\task.py", line 444, in delay
+    return self.apply_async(args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\celery\app\task.py", line 594, in apply_async
+    return app.send_task(
+           ^^^^^^^^^^^^^^
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\celery\app\base.py", line 798, in send_task
+    with P.connection._reraise_as_library_errors():
+  File "C:\Users\WINDOWS 11\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\PROGRAMA플O FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\kombu\connection.py", line 476, in _reraise_as_library_errors
+    raise ConnectionError(str(exc)) from exc
+kombu.exceptions.OperationalError: DB index is out of range
