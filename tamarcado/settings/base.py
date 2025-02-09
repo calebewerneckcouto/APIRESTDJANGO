@@ -182,3 +182,12 @@ LOGGING = {
         },
     },
 }
+
+CELERY_BROKER_URL = 'redis://default:0PKAZEkzurJg5aRpjSf3JiGhRDZQQg8Y@redis-13162.c241.us-east-1-4.ec2.redns.redis-cloud.com:13162/0'
+CELERY_RESULT_BACKEND='redis://default:0PKAZEkzurJg5aRpjSf3JiGhRDZQQg8Y@redis-13162.c241.us-east-1-4.ec2.redns.redis-cloud.com:13162/0'
+
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND','django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST','0.0.0.0')
+EMAIL_PORT=os.environ.get('EMAIL_PORT',1025)
+EMAIL_HOST_USER=os.environ.get('EMAIL_HOST_USER','')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD','')

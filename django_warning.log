@@ -128,3 +128,5 @@ Traceback (most recent call last):
   File "E:\PROGRAMAÇÃO FRONT FULL STACK\PYTHON CODAR\ApiRestDjango\venv\Lib\site-packages\kombu\connection.py", line 476, in _reraise_as_library_errors
     raise ConnectionError(str(exc)) from exc
 kombu.exceptions.OperationalError: DB index is out of range
+WARNING Not Found: /
+WARNING Not Found: /favicon.ico
